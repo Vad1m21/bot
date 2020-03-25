@@ -3,7 +3,7 @@ import java.util.List;
 
 public class CallBackInformation {
 
-    public static void getCallBack(String str){
+    public  void getCallBack(String str){
         List<Integer> callBack = new ArrayList<>();
         Integer number = Integer.parseInt(str);
         callBack.add(number);
@@ -13,12 +13,12 @@ public class CallBackInformation {
     }
 
 
-    public static Integer percentOfLifeBalance(List<Integer> callBack){
+    public  Integer percentOfLifeBalance(List<Integer> callBack){
         Integer sum = 0;
         for (Integer i:callBack) {
             sum+=i;
         }
-
+        System.out.println(sum);
         return sum;
     }
 }
