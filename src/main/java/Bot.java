@@ -20,124 +20,101 @@ import java.util.logging.Level;
 import static sun.util.logging.LoggingSupport.log;
 
 public class Bot extends TelegramLongPollingBot {
-
+    private int count = 0;
     String name;
     String token;
-    String[] arr = {"пример1", "пример2", "пример3", "пример4", "пример5", "пример6", "пример7", "пример8"};
+    String[] arrText;
+    String [] arrAnswer;
+
+
+
+    String [] arrButtons;
     CallBackInformation callBackInformation = new CallBackInformation();
 
-    public Bot(String name, String token) {
+    public Bot(String name, String token, String[] arr,String[] arrAnswer,String[]arrButtons) {
         this.name = name;
         this.token = token;
+        this.arrText = arr;
+        this.arrAnswer = arrAnswer;
+        this.arrButtons = arrButtons;
     }
 
-    public String getArrIndex(int index) {
-        return arr[index];
+
+
+    public String getBotUsername() {
+        return name;
+    }
+
+    public String getBotToken() {
+        return token;
+    }
+
+    public String[] getArr() {
+        return arrText;
+    }
+
+    public String[] getArrAnswer() {
+        return arrAnswer;
+    }
+
+    public String[] getArrButtons() {
+        return arrButtons;
     }
 
 
     public void onUpdateReceived(Update update) {
-        int i = 0;
+
         SendMessage sendMessage = new SendMessage();
         Message message = update.getMessage();
         boolean callbackQuery = update.hasCallbackQuery();
-        // Long chatId = update.getMessage().getChatId().longValue();
         if (update.hasMessage()) {
             if (message != null && message.hasText()) {
                 switch (message.getText()) {
                     case "/start":
-                        sendMsg(update.getMessage().getChatId(), "Привет! Я Telegram бот, и я помогу составить тебе твое колесо жизненного баланса. Нажми на кнопку Составить колесо");
+                        sendMsg(update.getMessage().getChatId(), arrAnswer[0]);
                         break;
                     case "Помощь":
-                        sendMsg(update.getMessage().getChatId(), "\"Распишите свои цели по 8-ми сферам жизни, реализовав которые вы будете себя чувствовать на 10 баллов из 10 в этой сфере (полностью удовлетворены результатом в этой сфере и счастливы). Сделайте это максимально конкретно по SMART (укажите дедлайн цели, четкую характеристику достижения в цифрах (3000$, 20 км бега, 40 книг в год, 10 новых стран, 3 отдыха в год и т.д.)). \\n\" +\n" +
-                                "                    \"\\n\" +\n" +
-                                "                    \"Примеры правильных целей из разных сфер: \\\"\\\"хочу читать 52 книги в год\\\"\\\"(развитие), \\\"\\\"хочу получать 3000$ через 3 года\\\"\\\" (финансы), \\\"\\\"хочу побывать в 7 странах за год\\\"\\\"(отдых, путешествия), \\\"\\\"хочу пробежать полумарафон\\\"\\\" (здоровье).\"");
+                        sendMsg(update.getMessage().getChatId(), arrAnswer[1]);
                         break;
                     case "Составить колесо":
-                        sendMsg(update.getMessage().getChatId(), "Отлично, начинаем! Я буду показывать тебе сферы твоей жизни. Оценивай их по десятибальной шкале, где 1 - это все плохо, 10 - это очень хорошо, лучше тебе и не нужно в этой сфере. Поехали!\"\n");
+                        sendMsg(update.getMessage().getChatId(), arrAnswer[2]);
                         try {
-                            execute(sendInlineKeyBoardMessage(update.getMessage().getChatId(), i));
-                            i++;
+                            String text = arrText[count];
+                            execute(sendInlineKeyBoardMessage(update.getMessage().getChatId(), text));
+
                         } catch (TelegramApiException e) {
                             e.printStackTrace();
                         }
                         break;
                     default:
-                        sendMsg(update.getMessage().getChatId(), "SO");
+                        sendMsg(update.getMessage().getChatId(), arrAnswer[3]);
 
                 }
             }
         } else if (callbackQuery) {
+            String str = update.getCallbackQuery().getData();
+            System.out.println(str);
+            callBackInformation.getCallBack(str);
             try {
-                String str = update.getCallbackQuery().getData();
-                System.out.println(str);
-                //  callBackInformation.getCallBack(str);
                 execute(new SendMessage().setText(update.getCallbackQuery().getData()).setChatId(update.getCallbackQuery().getMessage().getChatId()));
-
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
+            count++;
+            if (count == 1 || count == 2 || count == 3 || count == 4 || count == 5 || count == 6 || count == 7) {
+                try {
+                    String text = arrText[count];
+                    execute(sendInlineKeyBoardMessage(update.getCallbackQuery().getMessage().getChatId(), text));
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                String str1 = callBackInformation.percentOfLifeBalance();
+                sendMsg(update.getCallbackQuery().getMessage().getChatId(), arrAnswer[4] + str1 + arrAnswer[5] + arrAnswer[6]);
 
+            }
         }
     }
-
-
-       /* if(update.hasMessage()){
-            if (update.getMessage().hasText()){
-                    if(update.getMessage().getText().equals("/start")||update.getMessage().getText().equals("Помощь")||update.getMessage().getText().equals("Составить колесо")){
-                        startBot(update);
-                        if(update.getMessage().getText().equals("1"));
-                        startAskForBalance(update);
-                    }
-                }
-            }else if(update.hasCallbackQuery()){
-            try {
-                String str = update.getCallbackQuery().getData();
-                System.out.println(str);
-              //  callBackInformation.getCallBack(str);
-                execute(new SendMessage().setText(update.getCallbackQuery().getData()).setChatId(update.getCallbackQuery().getMessage().getChatId()));
-
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }*/
-
-       /* SendMessage sendMessage = new SendMessage();
-        if (update.hasMessage()) {
-            if (update.getMessage().hasText()) {
-                if (update.getMessage().getText().equals("/start")) {
-                    sendMsg(update.getMessage().getChatId().toString(), "Привет! Я Telegram бот, и я помогу составить тебе твое колесо жизненного баланса. Нажми на кнопку Составить колесо");//Привет! Я Telegram бот, и я помогу составить тебе твое колесо жизненного баланса. Нажми на кнопку Составить колесо
-                }
-                if (update.getMessage().getText().equals("Помощь")) {
-                    sendMsg(update.getMessage().getChatId().toString(), "Распишите свои цели по 8-ми сферам жизни, реализовав которые вы будете себя чувствовать на 10 баллов из 10 в этой сфере (полностью удовлетворены результатом в этой сфере и счастливы). Сделайте это максимально конкретно по SMART (укажите дедлайн цели, четкую характеристику достижения в цифрах (3000$, 20 км бега, 40 книг в год, 10 новых стран, 3 отдыха в год и т.д.)). \n" +
-                            "\n" +
-                            "Примеры правильных целей из разных сфер: \"\"хочу читать 52 книги в год\"\"(развитие), \"\"хочу получать 3000$ через 3 года\"\" (финансы), \"\"хочу побывать в 7 странах за год\"\"(отдых, путешествия), \"\"хочу пробежать полумарафон\"\" (здоровье).");
-                }
-                if (update.getMessage().getText().equals("Составить колесо")) {
-
-                    try {
-                        execute(sendInlineKeyBoardMessage(update.getMessage().getChatId()));
-                    } catch (TelegramApiException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } else if (update.hasCallbackQuery()) {
-            try {
-                String str = update.getCallbackQuery().getData();
-                System.out.println(str);
-                execute(new SendMessage().setText(
-                        update.getCallbackQuery().getData())
-                        .setChatId(update.getCallbackQuery().getMessage().getChatId()));
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-
-
-
-        }*/
 
 
     public synchronized void sendMsg(long chatId, String s) {
@@ -151,17 +128,8 @@ public class Bot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            log(Level.SEVERE, "Exception: ", e.toString());
+            e.printStackTrace();
         }
-    }
-
-
-    public String getBotUsername() {
-        return name;
-    }
-
-    public String getBotToken() {
-        return token;
     }
 
 
@@ -179,68 +147,35 @@ public class Bot extends TelegramLongPollingBot {
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
 
-        keyboardFirstRow.add(new KeyboardButton("Составить колесо"));
-        keyboardFirstRow.add(new KeyboardButton("Помощь"));
+        keyboardFirstRow.add(new KeyboardButton(arrButtons[0]));
+        keyboardFirstRow.add(new KeyboardButton(arrButtons[1]));
         keyboard.add(keyboardFirstRow);
         replyKeyboardMarkup.setKeyboard(keyboard);
     }
 
-    public static SendMessage sendInlineKeyBoardMessage(long chatId,int i) {
+    public  SendMessage sendInlineKeyBoardMessage(long chatId, String str) {
 
-        String[] arr = {"пример1", "пример2", "пример3", "пример4", "пример5", "пример6", "пример7", "пример8"};
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("1").setCallbackData("1"));
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("2").setCallbackData("2"));
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("3").setCallbackData("3"));
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("4").setCallbackData("4"));
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("5").setCallbackData("5"));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(arrButtons[2]).setCallbackData(arrButtons[2]));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(arrButtons[3]).setCallbackData(arrButtons[3]));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(arrButtons[4]).setCallbackData(arrButtons[4]));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(arrButtons[5]).setCallbackData(arrButtons[5]));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(arrButtons[6]).setCallbackData(arrButtons[6]));
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("6").setCallbackData("6"));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("7").setCallbackData("7"));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("8").setCallbackData("8"));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("9").setCallbackData("9"));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("10").setCallbackData("10"));
+        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(arrButtons[7]).setCallbackData(arrButtons[7]));
+        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(arrButtons[8]).setCallbackData(arrButtons[8]));
+        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(arrButtons[9]).setCallbackData(arrButtons[9]));
+        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(arrButtons[10]).setCallbackData(arrButtons[10]));
+        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(arrButtons[11]).setCallbackData(arrButtons[11]));
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         rowList.add(keyboardButtonsRow1);
         rowList.add(keyboardButtonsRow2);
         inlineKeyboardMarkup.setKeyboard(rowList);
 
-        return new SendMessage().setChatId(chatId).setText(arr[i]).setReplyMarkup(inlineKeyboardMarkup);
+        return new SendMessage().setChatId(chatId).setText(str).setReplyMarkup(inlineKeyboardMarkup);
     }
 
 
-    public void startBot(Update update) {
-        if (update.getMessage().getText().equals("/start")) {
-            sendMsg(update.getMessage().getChatId(), "Привет! Я Telegram бот, и я помогу составить тебе твое колесо жизненного баланса. Нажми на кнопку Составить колесо");//Привет! Я Telegram бот, и я помогу составить тебе твое колесо жизненного баланса. Нажми на кнопку Составить колесо
-        }
-        if (update.getMessage().getText().equals("Помощь")) {
-            sendMsg(update.getMessage().getChatId(), "Распишите свои цели по 8-ми сферам жизни, реализовав которые вы будете себя чувствовать на 10 баллов из 10 в этой сфере (полностью удовлетворены результатом в этой сфере и счастливы). Сделайте это максимально конкретно по SMART (укажите дедлайн цели, четкую характеристику достижения в цифрах (3000$, 20 км бега, 40 книг в год, 10 новых стран, 3 отдыха в год и т.д.)). \n" +
-                    "\n" +
-                    "Примеры правильных целей из разных сфер: \"\"хочу читать 52 книги в год\"\"(развитие), \"\"хочу получать 3000$ через 3 года\"\" (финансы), \"\"хочу побывать в 7 странах за год\"\"(отдых, путешествия), \"\"хочу пробежать полумарафон\"\" (здоровье).");
-        }
-    }
-
-
-    }
-
-
-
-
-
-
-/*
-
-  public String input(String msg){
-        if (msg.contains("Hi") || msg.contains("Hello") || msg.contains("Привет")) {
-            return "Привет друг!";
-        }
-        if(msg.contains("Информация о книге")){
-            return getInfoBook();
-        }
-        return msg;
-    }
-
-
- */
+}
