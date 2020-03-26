@@ -20,6 +20,9 @@ public class CallBackInformation {
         System.out.println(sum);
         System.out.println(result);
         String str = new StringBuilder().append(result).append("% .").toString();
+        callBack.clear();
         return str;
     }
+
 }
+

@@ -21,10 +21,10 @@ import static sun.util.logging.LoggingSupport.log;
 
 public class Bot extends TelegramLongPollingBot {
     private int count = 0;
-    String name;
-    String token;
-    String[] arrText;
-    String [] arrAnswer;
+    private String name;
+    private String token;
+    private String[] arrText;
+    private String [] arrAnswer;
 
 
 
@@ -109,6 +109,7 @@ public class Bot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
             } else {
+                count = 0;
                 String str1 = callBackInformation.percentOfLifeBalance();
                 sendMsg(update.getCallbackQuery().getMessage().getChatId(), arrAnswer[4] + str1 + arrAnswer[5] + arrAnswer[6]);
 
