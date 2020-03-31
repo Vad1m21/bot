@@ -1,7 +1,5 @@
-import org.apache.commons.logging.Log;
-import org.telegram.telegrambots.api.methods.AnswerCallbackQuery;
+
 import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.CallbackQuery;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -12,12 +10,12 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
 
-import static sun.util.logging.LoggingSupport.log;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class Bot extends TelegramLongPollingBot {
     private int count = 0;
@@ -28,18 +26,27 @@ public class Bot extends TelegramLongPollingBot {
 
 
 
-    String [] arrButtons;
+    private String [] arrQuestions;
+    private Map<Long,TelegramUser> userData;
+
+
+
+    private String [] arrButtons;
     CallBackInformation callBackInformation = new CallBackInformation();
 
-    public Bot(String name, String token, String[] arr,String[] arrAnswer,String[]arrButtons) {
+    public Bot(String name, String token, String[] arr,String[] arrAnswer,String[]arrButtons,String[] arrQuestions) {
         this.name = name;
         this.token = token;
         this.arrText = arr;
         this.arrAnswer = arrAnswer;
         this.arrButtons = arrButtons;
+        this.arrQuestions = arrQuestions;
+        userData = new HashMap<>();
     }
 
-
+    public String[] getArrQuestions() {
+        return arrQuestions;
+    }
 
     public String getBotUsername() {
         return name;
@@ -61,9 +68,31 @@ public class Bot extends TelegramLongPollingBot {
         return arrButtons;
     }
 
+    public TelegramUser getOrCreate(Update update){
+        long userId = 0;
+        if (update.hasMessage()){
+            userId = update.getMessage().getFrom().getId();
+
+        }else if(update.hasCallbackQuery()){
+            userId = update.getCallbackQuery().getFrom().getId();
+        }
+        TelegramUser result;
+        if(userData.containsKey(userId)){
+            result = userData.get(userId);
+        }else{
+            result = new TelegramUser();
+            result.userId =userId;
+            userData.put(userId,result);
+        }
+        if(update.hasMessage()){
+            result.chatId = update.getMessage().getChatId();
+        }
+        return result;
+    }
+
 
     public void onUpdateReceived(Update update) {
-
+        TelegramUser user = getOrCreate(update);
         SendMessage sendMessage = new SendMessage();
         Message message = update.getMessage();
         boolean callbackQuery = update.hasCallbackQuery();
@@ -71,23 +100,35 @@ public class Bot extends TelegramLongPollingBot {
             if (message != null && message.hasText()) {
                 switch (message.getText()) {
                     case "/start":
-                        sendMsg(update.getMessage().getChatId(), arrAnswer[0]);
+                        sendMsg(user.chatId,Icon.HAND.get() + arrAnswer[0]);
+                        break;
+                    case "Версия бота":
+                        sendMsg(user.chatId,Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get());
+                        sendMsg(user.chatId,arrAnswer[8]);
+                        sendMsg(user.chatId,Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get());
                         break;
                     case "Помощь":
-                        sendMsg(update.getMessage().getChatId(), arrAnswer[1]);
+                        sendMsg(user.chatId,Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get());
+                        sendMsg(user.chatId,  arrAnswer[1]);
+                        sendMsg(user.chatId,Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get());
                         break;
                     case "Составить колесо":
-                        sendMsg(update.getMessage().getChatId(), arrAnswer[2]);
+                        sendMsg(user.chatId,arrAnswer[2]);
+                        sendMsg(user.chatId,Icon.CIRCLE.get()+ Icon.CIRCLE.get()+ Icon.CIRCLE.get()+ Icon.CIRCLE.get()+ Icon.CIRCLE.get()+ Icon.CIRCLE.get());
+
+                        user.state = UserState.inProgress;
+
                         try {
-                            String text = arrText[count];
-                            execute(sendInlineKeyBoardMessage(update.getMessage().getChatId(), text));
+                            String text = arrQuestions[count];
+                            execute(sendInlineKeyBoardMessage(user.chatId,text));
 
                         } catch (TelegramApiException e) {
                             e.printStackTrace();
                         }
                         break;
                     default:
-                        sendMsg(update.getMessage().getChatId(), arrAnswer[3]);
+                        sendMsg(user.chatId,Icon.WARNING.get() + arrAnswer[3] + Icon.WARNING.get());
+
 
                 }
             }
@@ -96,22 +137,32 @@ public class Bot extends TelegramLongPollingBot {
             System.out.println(str);
             callBackInformation.getCallBack(str);
             try {
-                execute(new SendMessage().setText(update.getCallbackQuery().getData()).setChatId(update.getCallbackQuery().getMessage().getChatId()));
+                execute(new SendMessage().setText(str).setChatId(user.chatId));
+
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
             count++;
             if (count == 1 || count == 2 || count == 3 || count == 4 || count == 5 || count == 6 || count == 7) {
                 try {
-                    String text = arrText[count];
-                    execute(sendInlineKeyBoardMessage(update.getCallbackQuery().getMessage().getChatId(), text));
+                    String text = arrQuestions[count];
+                    execute(sendInlineKeyBoardMessage(user.chatId,text));
+
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
             } else {
+                sendMsg(user.chatId,arrText[8]+Icon.SAND.get());
+                user.state = UserState.idle;
                 count = 0;
+                int numberForStrongSide = callBackInformation.findStrongSide();
+                int numberForWeakSide = callBackInformation.findWeakSide();
                 String str1 = callBackInformation.percentOfLifeBalance();
-                sendMsg(update.getCallbackQuery().getMessage().getChatId(), arrAnswer[4] + str1 + arrAnswer[5] + arrAnswer[6]);
+                if(numberForStrongSide == numberForWeakSide){
+                    sendMsg(user.chatId,Icon.CHECK.get() + arrAnswer[4] + str1+ arrAnswer[7]);
+                }else {
+                    sendMsg(user.chatId, Icon.CHECK.get() + arrAnswer[4] + str1 + arrAnswer[5] + arrText[numberForStrongSide] + arrAnswer[6] + arrText[numberForWeakSide]);
+                }
 
             }
         }
@@ -137,6 +188,7 @@ public class Bot extends TelegramLongPollingBot {
     public synchronized void setButtons(SendMessage sendMessage) {
 
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+
         sendMessage.setReplyMarkup(replyKeyboardMarkup);
         replyKeyboardMarkup.setSelective(true);
         replyKeyboardMarkup.setResizeKeyboard(true);
@@ -147,10 +199,15 @@ public class Bot extends TelegramLongPollingBot {
 
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
 
         keyboardFirstRow.add(new KeyboardButton(arrButtons[0]));
         keyboardFirstRow.add(new KeyboardButton(arrButtons[1]));
+
+        keyboardSecondRow.add(arrButtons[12]);
+
         keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
         replyKeyboardMarkup.setKeyboard(keyboard);
     }
 
@@ -159,17 +216,17 @@ public class Bot extends TelegramLongPollingBot {
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(arrButtons[2]).setCallbackData(arrButtons[2]));
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(arrButtons[3]).setCallbackData(arrButtons[3]));
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(arrButtons[4]).setCallbackData(arrButtons[4]));
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(arrButtons[5]).setCallbackData(arrButtons[5]));
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(arrButtons[6]).setCallbackData(arrButtons[6]));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(Icon.ONE.get()).setCallbackData(arrButtons[2]));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(Icon.TWO.get()).setCallbackData(arrButtons[3]));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(Icon.THREE.get()).setCallbackData(arrButtons[4]));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(Icon.FOUR.get()).setCallbackData(arrButtons[5]));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(Icon.FIVE.get()).setCallbackData(arrButtons[6]));
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(arrButtons[7]).setCallbackData(arrButtons[7]));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(arrButtons[8]).setCallbackData(arrButtons[8]));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(arrButtons[9]).setCallbackData(arrButtons[9]));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(arrButtons[10]).setCallbackData(arrButtons[10]));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(arrButtons[11]).setCallbackData(arrButtons[11]));
+        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(Icon.SIX.get()).setCallbackData(arrButtons[7]));
+        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(Icon.SEVEN.get()).setCallbackData(arrButtons[8]));
+        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(Icon.EIGHT.get()).setCallbackData(arrButtons[9]));
+        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(Icon.NINE.get()).setCallbackData(arrButtons[10]));
+        keyboardButtonsRow2.add(new InlineKeyboardButton().setText(Icon.TEN.get()).setCallbackData(arrButtons[11]));
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         rowList.add(keyboardButtonsRow1);
         rowList.add(keyboardButtonsRow2);

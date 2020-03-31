@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d163bb96-9ba7-4079-b68a-82bbb3550e8a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Icon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/TelegramUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/UserState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BotConfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/BotConfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/CallBackInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CallBackInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Bot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bot.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -79,40 +86,48 @@
       <option name="project" value="LOCAL" />
       <updated>1585250494791</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="clear count and list for new users in one session">
+      <created>1585253355724</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1585253355724</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ADD SMTH" />
     <MESSAGE value="CALL BACK" />
     <MESSAGE value="Some moments with call back func" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some moments with call back func" />
+    <MESSAGE value="clear count and list for new users in one session" />
+    <option name="LAST_COMMIT_MESSAGE" value="clear count and list for new users in one session" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1585248420447">
+    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1585665198837">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1585248420447" />
-    <state x="424" y="7" key="CommitChangelistDialog2" timestamp="1585250493421">
+    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1585665198837" />
+    <state x="424" y="7" key="CommitChangelistDialog2" timestamp="1585253354791">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="424" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585250493421" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1585253145096">
+    <state x="424" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585253354791" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1585671640264">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585253145096" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1585253145096">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585671640264" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1585671640264">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585253145096" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1585253145096">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585671640264" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1585671640263">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585253145096" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1585253145096">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585671640263" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1585671640264">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585253145096" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585671640264" />
     <state width="1493" height="258" key="GridCell.Tab.1.bottom" timestamp="1585167045749">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -133,14 +148,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="299" y="67" key="Maven.ArtifactSearchDialog/0.0.1536.824@0.0.1536.824" timestamp="1585154865453" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585250500321">
+    <state x="539" y="123" key="RollbackChangesDialog" timestamp="1585665933135">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585250500321" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1585245358766">
+    <state x="539" y="123" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1585665933135" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585253362903">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585245358766" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585253362903" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1585664828360">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585664828360" />
     <state x="209" y="108" key="new project wizard" timestamp="1584622632423">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -155,7 +174,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Bot.java</url>
-          <line>122</line>
+          <line>173</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
