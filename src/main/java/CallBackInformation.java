@@ -3,18 +3,28 @@ import java.util.List;
 
 public class CallBackInformation {
 
-    public List<Integer> callBack = new ArrayList<>();
 
-    public  void getCallBack(String str){
+
+    public   List<Integer> callBack = new ArrayList<>();
+    public  List<String> callBackStr = new ArrayList<>();
+
+    public List<Integer> getCallBack() {
+        return callBack;
+    }
+
+
+
+    public void getCallBackArray(String str) {
+        callBackStr.add(str);
         Integer number = Integer.parseInt(str);
         callBack.add(number);
     }
 
-    public int findStrongSide(){
+    public int findStrongSide() {
         int max = 0;
         int count = 0;
-        for (int i = 0; i <callBack.size();i++){
-            if(max < callBack.get(i)){
+        for (int i = 0; i < callBack.size(); i++) {
+            if (max < callBack.get(i)) {
                 max = callBack.get(i);
                 count = i;
             }
@@ -23,11 +33,11 @@ public class CallBackInformation {
         return count;
     }
 
-    public  int findWeakSide(){
+    public int findWeakSide() {
         int min = callBack.get(0);
         int count = 0;
-        for(int i = 0;i <callBack.size();i++){
-            if(min > callBack.get(i)){
+        for (int i = 0; i < callBack.size(); i++) {
+            if (min > callBack.get(i)) {
                 min = callBack.get(i);
                 count = i;
             }
@@ -38,18 +48,20 @@ public class CallBackInformation {
     }
 
 
-    public  String percentOfLifeBalance(){
+    public String percentOfLifeBalance() {
         double sum = 0;
-        for (Integer i:callBack) {
-            sum +=i;
+        for (Integer i : callBack) {
+            sum += i;
         }
-        sum = (sum/80) *100;
+        sum = (sum / 80) * 100;
         int result = (int) sum;
         System.out.println(result);
+
         String str = new StringBuilder().append(result).append("%. ").toString();
         callBack.clear();
         return str;
     }
+
 
 }
 

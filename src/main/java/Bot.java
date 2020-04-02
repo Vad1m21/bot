@@ -1,5 +1,6 @@
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -11,6 +12,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,9 +25,6 @@ public class Bot extends TelegramLongPollingBot {
     private String token;
     private String[] arrText;
     private String [] arrAnswer;
-
-
-
     private String [] arrQuestions;
     private Map<Long,TelegramUser> userData;
 
@@ -100,34 +99,34 @@ public class Bot extends TelegramLongPollingBot {
             if (message != null && message.hasText()) {
                 switch (message.getText()) {
                     case "/start":
-                        sendMsg(user.chatId,Icon.HAND.get() + arrAnswer[0]);
+                        sendMsg(user.chatId, Icon.HAND.get() + arrAnswer[0]);
                         break;
                     case "Версия бота":
-                        sendMsg(user.chatId,Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get());
-                        sendMsg(user.chatId,arrAnswer[8]);
-                        sendMsg(user.chatId,Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get()+Icon.BOT.get());
+                        sendMsg(user.chatId, Icon.BOT.get() + Icon.BOT.get() + Icon.BOT.get() + Icon.BOT.get() + Icon.BOT.get());
+                        sendMsg(user.chatId, arrAnswer[8]);
+                        sendMsg(user.chatId, Icon.BOT.get() + Icon.BOT.get() + Icon.BOT.get() + Icon.BOT.get() + Icon.BOT.get());
                         break;
                     case "Помощь":
-                        sendMsg(user.chatId,Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get());
-                        sendMsg(user.chatId,  arrAnswer[1]);
-                        sendMsg(user.chatId,Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get()+ Icon.QUESTION.get());
+                        sendMsg(user.chatId, Icon.QUESTION.get() + Icon.QUESTION.get() + Icon.QUESTION.get() + Icon.QUESTION.get() + Icon.QUESTION.get());
+                        sendMsg(user.chatId, arrAnswer[1]);
+                        sendMsg(user.chatId, Icon.QUESTION.get() + Icon.QUESTION.get() + Icon.QUESTION.get() + Icon.QUESTION.get() + Icon.QUESTION.get());
                         break;
                     case "Составить колесо":
-                        sendMsg(user.chatId,arrAnswer[2]);
-                        sendMsg(user.chatId,Icon.CIRCLE.get()+ Icon.CIRCLE.get()+ Icon.CIRCLE.get()+ Icon.CIRCLE.get()+ Icon.CIRCLE.get()+ Icon.CIRCLE.get());
+                        sendMsg(user.chatId, arrAnswer[2]);
+                        sendMsg(user.chatId, Icon.CIRCLE.get() + Icon.CIRCLE.get() + Icon.CIRCLE.get() + Icon.CIRCLE.get() + Icon.CIRCLE.get() + Icon.CIRCLE.get());
 
                         user.state = UserState.inProgress;
 
                         try {
                             String text = arrQuestions[count];
-                            execute(sendInlineKeyBoardMessage(user.chatId,text));
+                            execute(sendInlineKeyBoardMessage(user.chatId, text));
 
                         } catch (TelegramApiException e) {
                             e.printStackTrace();
                         }
                         break;
                     default:
-                        sendMsg(user.chatId,Icon.WARNING.get() + arrAnswer[3] + Icon.WARNING.get());
+                        sendMsg(user.chatId, Icon.WARNING.get() + arrAnswer[3] + Icon.WARNING.get());
 
 
                 }
@@ -135,7 +134,7 @@ public class Bot extends TelegramLongPollingBot {
         } else if (callbackQuery) {
             String str = update.getCallbackQuery().getData();
             System.out.println(str);
-            callBackInformation.getCallBack(str);
+            callBackInformation.getCallBackArray(str);
             try {
                 execute(new SendMessage().setText(str).setChatId(user.chatId));
 
@@ -146,27 +145,55 @@ public class Bot extends TelegramLongPollingBot {
             if (count == 1 || count == 2 || count == 3 || count == 4 || count == 5 || count == 6 || count == 7) {
                 try {
                     String text = arrQuestions[count];
-                    execute(sendInlineKeyBoardMessage(user.chatId,text));
+                    execute(sendInlineKeyBoardMessage(user.chatId, text));
 
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
             } else {
-                sendMsg(user.chatId,arrText[8]+Icon.SAND.get());
+                sendMsg(user.chatId, arrQuestions[8] + Icon.SAND.get());
                 user.state = UserState.idle;
                 count = 0;
+                List<Integer> call = callBackInformation.getCallBack();
+                Integer[] arr = new Integer[call.size() + 1];
+                arr = call.toArray(arr);
+                ImageCreate imageCreate = new ImageCreate(arrText, arr);
+
+
+
                 int numberForStrongSide = callBackInformation.findStrongSide();
                 int numberForWeakSide = callBackInformation.findWeakSide();
-                String str1 = callBackInformation.percentOfLifeBalance();
-                if(numberForStrongSide == numberForWeakSide){
-                    sendMsg(user.chatId,Icon.CHECK.get() + arrAnswer[4] + str1+ arrAnswer[7]);
-                }else {
-                    sendMsg(user.chatId, Icon.CHECK.get() + arrAnswer[4] + str1 + arrAnswer[5] + arrText[numberForStrongSide] + arrAnswer[6] + arrText[numberForWeakSide]);
-                }
 
+                String str1 = callBackInformation.percentOfLifeBalance();
+
+                if (numberForStrongSide == numberForWeakSide) {
+                    sendMsg(user.chatId, Icon.CHECK.get() + arrAnswer[4] + str1 + arrAnswer[7]);
+
+                }else{
+                    sendMsg(user.chatId, Icon.CHECK.get() + arrAnswer[4] + str1 + arrAnswer[5] + arrText[numberForStrongSide] + arrAnswer[6] + arrText[numberForWeakSide]);
+                   try {
+                       imageCreate.createChartPanel();
+                       SendPhoto msg = new SendPhoto()
+                               .setChatId(user.chatId)
+                               .setPhoto("WheelLifeBalance");
+
+                       sendPhoto(msg);
+                   }catch (TelegramApiException e){
+                       e.printStackTrace();
+                   }
+
+
+                    }
+
+                }
             }
         }
-    }
+
+
+
+
+
+
 
 
     public synchronized void sendMsg(long chatId, String s) {
