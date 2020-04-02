@@ -1,8 +1,7 @@
 import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.TelegramBotsApi;
-import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Main {
@@ -21,3 +20,4 @@ public class Main {
 
     }
 }
+//new Bot(bot.getBotUsername(),bot.getBotToken(),bot.getArr(),bot.getArrAnswer(),bot.getArrButtons(),bot.getArrQuestions())

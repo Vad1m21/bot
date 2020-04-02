@@ -1,17 +1,15 @@
 
-import javafx.scene.image.Image;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.methods.send.SendPhoto;
-import org.telegram.telegrambots.api.objects.Message;
-import org.telegram.telegrambots.api.objects.Update;
-import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
-
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,49 +46,7 @@ public class Bot extends TelegramLongPollingBot {
         return arrQuestions;
     }
 
-    public String getBotUsername() {
-        return name;
-    }
-
-    public String getBotToken() {
-        return token;
-    }
-
-    public String[] getArr() {
-        return arrText;
-    }
-
-    public String[] getArrAnswer() {
-        return arrAnswer;
-    }
-
-    public String[] getArrButtons() {
-        return arrButtons;
-    }
-
-    public TelegramUser getOrCreate(Update update){
-        long userId = 0;
-        if (update.hasMessage()){
-            userId = update.getMessage().getFrom().getId();
-
-        }else if(update.hasCallbackQuery()){
-            userId = update.getCallbackQuery().getFrom().getId();
-        }
-        TelegramUser result;
-        if(userData.containsKey(userId)){
-            result = userData.get(userId);
-        }else{
-            result = new TelegramUser();
-            result.userId =userId;
-            userData.put(userId,result);
-        }
-        if(update.hasMessage()){
-            result.chatId = update.getMessage().getChatId();
-        }
-        return result;
-    }
-
-
+    @Override
     public void onUpdateReceived(Update update) {
         TelegramUser user = getOrCreate(update);
         SendMessage sendMessage = new SendMessage();
@@ -159,7 +115,7 @@ public class Bot extends TelegramLongPollingBot {
                 Integer[] arr = new Integer[call.size() + 1];
                 arr = call.toArray(arr);
                 ImageCreate imageCreate = new ImageCreate(arrText, arr);
-
+                imageCreate.createChartPanel();
 
 
                 int numberForStrongSide = callBackInformation.findStrongSide();
@@ -172,31 +128,61 @@ public class Bot extends TelegramLongPollingBot {
 
                 }else{
                     sendMsg(user.chatId, Icon.CHECK.get() + arrAnswer[4] + str1 + arrAnswer[5] + arrText[numberForStrongSide] + arrAnswer[6] + arrText[numberForWeakSide]);
-                   try {
-                       imageCreate.createChartPanel();
-
-                       SendPhoto msg = new SendPhoto()
-                               .setChatId(user.chatId);
-                               msg.setPhoto("src/main/java/WheelLifeBalance");
-
-                       sendPhoto(msg);
-                   }catch (TelegramApiException e){
-                       e.printStackTrace();
-                   }
-
-
+                    SendPhoto msg = new SendPhoto().setChatId(user.chatId).setPhoto( new File("path\to\file.png"));
+                    try {
+                        execute(msg);
+                    }catch (TelegramApiException e){
+                        e.printStackTrace();
                     }
 
+
                 }
+
             }
         }
+    }
 
+    public String getBotUsername() {
+        return name;
+    }
 
+    public String getBotToken() {
+        return token;
+    }
 
+    public String[] getArr() {
+        return arrText;
+    }
 
+    public String[] getArrAnswer() {
+        return arrAnswer;
+    }
 
+    public String[] getArrButtons() {
+        return arrButtons;
+    }
 
+    public TelegramUser getOrCreate(Update update){
+        long userId = 0;
+        if (update.hasMessage()){
+            userId = update.getMessage().getFrom().getId();
 
+        }else if(update.hasCallbackQuery()){
+            userId = update.getCallbackQuery().getFrom().getId();
+        }
+        TelegramUser result;
+        if(userData.containsKey(userId)){
+            result = userData.get(userId);
+        }else{
+            result = new TelegramUser();
+            result.userId =userId;
+            userData.put(userId,result);
+        }
+        if(update.hasMessage()){
+            result.chatId = update.getMessage().getChatId();
+        }
+        return result;
+    }
 
     public synchronized void sendMsg(long chatId, String s) {
 

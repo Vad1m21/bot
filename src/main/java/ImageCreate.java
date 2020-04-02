@@ -1,7 +1,7 @@
 import javafx.scene.image.Image;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
@@ -53,11 +53,11 @@ public class ImageCreate extends JFrame {
         chart = ChartFactory.createPieChart("Круговая диаграма",defaultPieDataset,true,true,false);
 
 
-        File imageChart = new File( "src/main/java/WheelLifeBalance");
+        File imageChart = new File( "LifeBalance.png");
 
 
         try {
-            ChartUtilities.saveChartAsPNG(imageChart,chart,500,300);
+            ChartUtils.saveChartAsPNG(imageChart,chart,500,300);
         }catch (Exception e){
             System.out.println("Problem");
         }
