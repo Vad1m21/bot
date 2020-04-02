@@ -1,3 +1,4 @@
+import javafx.scene.image.Image;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
@@ -10,13 +11,13 @@ import java.io.File;
 public class ImageCreate extends JFrame {
     public String [] arrText;
     public Integer [] arrWheel;
+    //File imageChart;
 
 
-
-    public File image = new File( "WheelLifeBalance");
+    public File imageChart;
 
     public File getImage() {
-        return image;
+        return imageChart;
     }
 
     public ImageCreate(String [] arrText,Integer [] arrWheel){
@@ -35,6 +36,7 @@ public class ImageCreate extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
     }
 
     public void createPieChart(){
@@ -50,8 +52,12 @@ public class ImageCreate extends JFrame {
         defaultPieDataset.setValue(arrText[7],arrWheel[7]);
         chart = ChartFactory.createPieChart("Круговая диаграма",defaultPieDataset,true,true,false);
 
+
+        File imageChart = new File( "src/main/java/WheelLifeBalance");
+
+
         try {
-            ChartUtilities.saveChartAsJPEG(image,chart,500,300);
+            ChartUtilities.saveChartAsPNG(imageChart,chart,500,300);
         }catch (Exception e){
             System.out.println("Problem");
         }

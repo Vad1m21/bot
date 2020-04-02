@@ -1,4 +1,5 @@
 
+import javafx.scene.image.Image;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Message;
@@ -173,9 +174,10 @@ public class Bot extends TelegramLongPollingBot {
                     sendMsg(user.chatId, Icon.CHECK.get() + arrAnswer[4] + str1 + arrAnswer[5] + arrText[numberForStrongSide] + arrAnswer[6] + arrText[numberForWeakSide]);
                    try {
                        imageCreate.createChartPanel();
+
                        SendPhoto msg = new SendPhoto()
-                               .setChatId(user.chatId)
-                               .setPhoto("WheelLifeBalance");
+                               .setChatId(user.chatId);
+                               msg.setPhoto("src/main/java/WheelLifeBalance");
 
                        sendPhoto(msg);
                    }catch (TelegramApiException e){
