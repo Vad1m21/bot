@@ -34,8 +34,8 @@ public class ImageCreate extends JFrame {
         pack();
         setTitle("Колесо");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setVisible(true);
 
     }
 
@@ -50,7 +50,7 @@ public class ImageCreate extends JFrame {
         defaultPieDataset.setValue(arrText[5],arrWheel[5]);
         defaultPieDataset.setValue(arrText[6],arrWheel[6]);
         defaultPieDataset.setValue(arrText[7],arrWheel[7]);
-        chart = ChartFactory.createPieChart("Круговая диаграма",defaultPieDataset,true,true,false);
+        chart = ChartFactory.createPieChart("Колесо жизненного баланса",defaultPieDataset,true,true,false);
 
 
         File imageChart = new File( "LifeBalance.png");
@@ -59,7 +59,7 @@ public class ImageCreate extends JFrame {
         try {
             ChartUtils.saveChartAsPNG(imageChart,chart,500,300);
         }catch (Exception e){
-            System.out.println("Problem");
+            System.out.println("Some problem`s");
         }
 
     }

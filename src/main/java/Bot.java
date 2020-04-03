@@ -128,7 +128,7 @@ public class Bot extends TelegramLongPollingBot {
 
                 }else{
                     sendMsg(user.chatId, Icon.CHECK.get() + arrAnswer[4] + str1 + arrAnswer[5] + arrText[numberForStrongSide] + arrAnswer[6] + arrText[numberForWeakSide]);
-                    SendPhoto msg = new SendPhoto().setChatId(user.chatId).setPhoto( new File("path\to\file.png"));
+                    SendPhoto msg = new SendPhoto().setChatId(user.chatId).setPhoto( new File("LifeBalance.png"));
                     try {
                         execute(msg);
                     }catch (TelegramApiException e){
