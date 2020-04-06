@@ -20,4 +20,3 @@ public class Main {
 
     }
 }
-//new Bot(bot.getBotUsername(),bot.getBotToken(),bot.getArr(),bot.getArrAnswer(),bot.getArrButtons(),bot.getArrQuestions())

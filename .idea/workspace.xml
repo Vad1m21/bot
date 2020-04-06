@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d163bb96-9ba7-4079-b68a-82bbb3550e8a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ProcFile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LifeBalance.png" beforeDir="false" afterPath="$PROJECT_DIR$/LifeBalance.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Bot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ImageCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ImageCreate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Bot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bot.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,8 +129,26 @@
       <option name="project" value="LOCAL" />
       <updated>1585826328582</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="first launch">
+      <created>1585944540213</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1585944540213</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -137,37 +158,42 @@
     <MESSAGE value="clear count and list for new users in one session" />
     <MESSAGE value="Ready to use" />
     <MESSAGE value="add diagram" />
-    <option name="LAST_COMMIT_MESSAGE" value="add diagram" />
+    <MESSAGE value="first launch" />
+    <option name="LAST_COMMIT_MESSAGE" value="first launch" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="920" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585815038077">
+    <state x="920" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586180900790">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="920" y="215" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1585815038077" />
+    <state x="920" y="215" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1586180900790" />
+    <state x="407" y="100" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog" timestamp="1586181360948">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="407" y="100" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog/0.0.1536.824@0.0.1536.824" timestamp="1586181360948" />
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1585822968090">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1585822968090" />
-    <state x="424" y="7" key="CommitChangelistDialog2" timestamp="1585826327503">
+    <state x="424" y="7" key="CommitChangelistDialog2" timestamp="1585944539089">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="424" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585826327503" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1585944050162">
+    <state x="424" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585944539089" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1585948972263">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585944050162" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1585944050162">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585948972263" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1585948972263">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585944050162" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1585944050162">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585948972263" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1585948972263">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585944050162" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1585944050162">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585948972263" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1585948972263">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585944050162" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585948972263" />
     <state width="1493" height="258" key="GridCell.Tab.1.bottom" timestamp="1585739545364">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -188,30 +214,34 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="299" y="67" key="Maven.ArtifactSearchDialog/0.0.1536.824@0.0.1536.824" timestamp="1585823172082" />
-    <state x="539" y="123" key="RollbackChangesDialog" timestamp="1585665933135">
+    <state x="539" y="123" key="RollbackChangesDialog" timestamp="1586181098588">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="539" y="123" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1585665933135" />
+    <state x="539" y="123" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1586181098588" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585826333446">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585826333446" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1585943244724">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1586181425614">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585943244724" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1586181425614" />
     <state x="512" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585766995249">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="512" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585766995249" />
-    <state x="209" y="108" key="new project wizard" timestamp="1584622632423">
+    <state x="209" y="108" key="new project wizard" timestamp="1586177859226">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="209" y="108" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1584622632423" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1584958568170">
+    <state x="209" y="108" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1586177859226" />
+    <state x="425" y="187" width="672" height="677" key="run.anything.popup" timestamp="1586182657957">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1584958568170" />
+    <state x="425" y="187" width="672" height="677" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1586182657957" />
+    <state x="361" y="71" key="scopes" timestamp="1586181505087">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="71" key="scopes/0.0.1536.824@0.0.1536.824" timestamp="1586181505087" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

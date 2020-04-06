@@ -11,10 +11,8 @@ import java.io.File;
 public class ImageCreate extends JFrame {
     public String [] arrText;
     public Integer [] arrWheel;
-    //File imageChart;
-
-
     public File imageChart;
+    JFreeChart chart;
 
     public File getImage() {
         return imageChart;
@@ -25,7 +23,7 @@ public class ImageCreate extends JFrame {
         this.arrWheel = arrWheel;
     }
 
-    JFreeChart chart;
+
 
     public void createChartPanel(){
         createPieChart();
