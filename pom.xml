@@ -24,10 +24,13 @@
                 <configuration>
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
-                        <program>
-                            <mainClass>Main</mainClass>
-                            <name>TelegramBot</name>
-                        </program>
+                        <processTypes>
+                            <mainClass>com.home.server.Main</mainClass>
+                            <name>telegrambotforwheel</name>
+                            <worker>
+                                java $JAVA_OPTS -cp target/classes:target/dependency/* path.to.your.Main-class
+                            </worker>
+                        </processTypes>
                     </programs>
                 </configuration>
                 <executions>
