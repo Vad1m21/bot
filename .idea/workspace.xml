@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d163bb96-9ba7-4079-b68a-82bbb3550e8a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProcFile" beforeDir="false" afterPath="$PROJECT_DIR$/ProcFile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,10 +230,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="539" y="123" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1586181098588" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585826333446">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1586254403224">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585826333446" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1586254403224" />
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1586190089304">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
